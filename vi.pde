@@ -11,11 +11,18 @@ ArrayList<Disease> diseases = new ArrayList();
 int time;
 
 int textx;
-int texty;
+
 int maleSpawnRate;
 int maleSpawning;
+int maleKillCount;
+
 int femaleSpawnRate;
 int femaleSpawning;
+int femaleKillCount;
+
+int coupleFormCount;
+int coupleKillCount;
+
 int diseaseSpawnRate;
 int diseaseSpawning;
 
@@ -46,15 +53,20 @@ void draw() {
             couples.add(new Couple(male, female));   // Couple(male, female) 
             males.remove(male);
             females.remove(female);
+            coupleFormCount = coupleFormCount + 1;
+            println("COUPLE FORMED");
           } else if (disease.position.dist(male.position) < 20) {
             males.remove(male);
+            maleKillCount = maleKillCount + 1;
             println("MALE REMOVED");
           } else if (disease.position.dist(female.position) < 20) {
             females.remove(female);
+            femaleKillCount = femaleKillCount + 1;
             println("FEMALE REMOVED");
           }
           //else if (disease.position.dist(couple.position) < 20) {
           //couples.remove(couple);
+          //coupleKillCount = coupleKillCount + 1;
           //println("COUPLE REMOVED");
           //}
         }
@@ -140,7 +152,6 @@ void draw() {
 
   // DISPLAY BOX ===================================================================================================================================
   textx = 810;
-  texty = 30;
   maleSpawning = time/maleSpawnRate;
   maleSpawnRate = 1000/maleSpawnRate;
   femaleSpawning = time/femaleSpawnRate;
@@ -153,12 +164,25 @@ void draw() {
   fill(255);
   rect(width-210, 2, 207, 795);
   fill(0);
-  text("Male Spawn Rate: " + maleSpawnRate + " / minute", textx, texty);
-  text("Males Spawned: " + maleSpawning, textx, texty*2-10);
-  text("Female Spawn Rate: " + femaleSpawnRate + " / minute", textx, texty*3);
-  text("Females Spawned: " + femaleSpawning, textx, texty*4-10);
-  text("Disease Spawn Rate: " + diseaseSpawnRate + " / minute", textx, texty*5);
-  text("Diseases Spawned: " + diseaseSpawning, textx, texty*6-10);
+  text("Male Spawn Rate: " + maleSpawnRate + " / minute", textx, 30);
+  text("Males Spawned: " + maleSpawning, textx, 50);
+  fill(255, 0, 0);
+  text("Males Killed: " + maleKillCount, textx, 70);
+
+  fill(0);
+  text("Female Spawn Rate: " + femaleSpawnRate + " / minute", textx, 100);
+  text("Females Spawned: " + femaleSpawning, textx, 120);
+  fill(255, 0, 0);
+  text("Females Killed: " + femaleKillCount, textx, 140);
+
+  fill(0);
+  text("Couples Formed: " + coupleFormCount, textx, 170);
+  fill(255, 0, 0);
+  text("Couples Killed: ", textx, 190);
+
+  fill(0);
+  text("Disease Spawn Rate: " + diseaseSpawnRate + " / minute", textx, 220);
+  text("Diseases Spawned: " + diseaseSpawning, textx, 240);
   // END DISPLAY BOC ==============================================================================================================================
 }
 // END DRAW =====================================================================================================================================

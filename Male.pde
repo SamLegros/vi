@@ -19,21 +19,13 @@ class Male {
   void move() {
     position.add(speed);
   }
+  
   void display() {
     pushMatrix();
     translate(position.x, position.y);
-    ellipse(0, 0, 5, 5);
-
-    float angle = speed.heading2D();
-    float len = 15;
-
-    rotate(angle);
     noStroke();
-    fill(65, 100, 255);
+    fill(65, 100, 255, 100);
     ellipse(0, 0, 20, 20);
     popMatrix();
-  }
-  void end() {
-    fill(255);
   }
 }

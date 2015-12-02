@@ -13,7 +13,6 @@ class Male {
 
   void followFemale(Female female) {
     speed = PVector.sub(female.position, position);
-    //speed.lerp(position, 0.1);
     speed.normalize();
   }
 
@@ -32,9 +31,9 @@ class Male {
     noStroke();
     fill(65, 100, 255);
     ellipse(0, 0, 20, 20);
-    //line(0, 0, len, 0);
-    //line(len, 0, len-5, -5);
-    //line(len, 0, len-5, 5);
     popMatrix();
+  }
+  void end() {
+    fill(255);
   }
 }

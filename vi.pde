@@ -1,40 +1,43 @@
-ArrayList<Male> males = new ArrayList();
-ArrayList<Female> females = new ArrayList();
-int score;
+class Male {
+  PVector position;
+  PVector speed;
+  int fillc;
 
-void setup() {
-  size(800, 800);
-}
+  Male() {
+    this(random(width), random(height), random(-1, 1), random(-1, 1));
+  }
 
-void draw() {
-  int time = millis();
-  score++;
-  println(score);
-  background(255);
+  Male(float x, float y, float sx, float sy) {
+    position = new PVector(x, y);
+    speed = new PVector(sx, sy);
 
-  for (Male male : males) {
-    male.move();
-    male.display();
-    for (Female female : females) {
-      if (male.position.dist(female.position) < 100) {
-        male.followFemale(female);
-        if (male.position.dist(female.position) < 5) {
-        // create a couple, destroy the male and female 
-        }
-      }
+    fillc = int(random(0, 150));
+  }
+
+  void followFemale(Female female) {
+    speed = PVector.sub(female.position, position);
+    speed.normalize();
+  }
+
+  void move() {
+    position.add(speed);
+  }
+
+  void display() {
+    pushMatrix();
+    translate(position.x, position.y);
+    noStroke();
+    fill(fillc, fillc, 255);
+    ellipse(0, 0, 20, 20);
+    popMatrix();
+  }
+
+  void checkEdges() {
+    if ((position.x > width-220) || (position.x < 0)) {
+      speed.x = speed.x * -1;
     }
-  }
-
-  for (Female female : females) {
-    female.move();
-    female.display();
-  }
-
-  if (score % 50 == 0) {
-    males.add(new Male());
-  }
-
-  if (score % 50 == 0) {
-    females.add(new Female());
+    if ((position.y > height) || (position.y < 0 )) {
+      speed.y = speed.y * -1;
+    }
   }
 }
